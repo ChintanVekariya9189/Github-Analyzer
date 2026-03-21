@@ -2,13 +2,15 @@ import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import ProfileCard from './components/ProfileCard';
 import RepoList from './components/RepoList';
+import LanguageChart from './components/LanguageChart';
 import SkeletonCard from './components/SkeletonCard';
 import SkeletonRepo from './components/SkeletonRepo';
 import useGitHubUser from './hooks/useGitHubUser';
 
 const App = () => {
   const [committedUsername, setCommittedUsername] = useState('');
-  const { user, repos, loading, error } = useGitHubUser(committedUsername);
+  const { user, repos, loading, error, rateLimitError } =
+    useGitHubUser(committedUsername);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -39,8 +41,32 @@ const App = () => {
           </div>
         )}
 
-        {/* ── Error state ── */}
-        {!loading && error && (
+        {/* ── Rate limit error state ── */}
+        {!loading && error && rateLimitError && (
+          <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 rounded-xl px-5 py-4 text-amber-800 dark:text-amber-300 text-sm flex items-start gap-3">
+            <span className="text-xl leading-none mt-0.5">⏱️</span>
+            <div>
+              <p className="font-semibold">GitHub Rate Limit Reached</p>
+              <p className="mt-1 opacity-90">
+                Rate limit reached. Add a GitHub token or wait 1 hour.
+              </p>
+              <p className="mt-2 opacity-75 text-xs">
+                To add a token, set{' '}
+                <code className="font-mono bg-amber-100 dark:bg-amber-800/40 rounded px-1">
+                  VITE_GITHUB_TOKEN
+                </code>{' '}
+                in your{' '}
+                <code className="font-mono bg-amber-100 dark:bg-amber-800/40 rounded px-1">
+                  .env
+                </code>{' '}
+                file.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── Generic error state ── */}
+        {!loading && error && !rateLimitError && (
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl px-5 py-4 text-red-700 dark:text-red-400 text-sm flex items-start gap-3">
             <span className="text-lg leading-none mt-0.5">❌</span>
             <div>
@@ -50,10 +76,11 @@ const App = () => {
           </div>
         )}
 
-        {/* ── Profile + Repos (success state) ── */}
+        {/* ── Profile + Chart + Repos (success state) ── */}
         {!loading && !error && user && (
           <div className="space-y-6">
             <ProfileCard user={user} />
+            {repos.length > 0 && <LanguageChart repos={repos} />}
             <RepoList repos={repos} />
           </div>
         )}

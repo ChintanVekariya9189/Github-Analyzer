@@ -14,8 +14,11 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: 'updated', label: '🕐 Recently Updated' },
 ];
 
+const PAGE_SIZE = 10;
+
 const RepoList = ({ repos }: RepoListProps) => {
   const [sortBy, setSortBy] = useState<SortKey>('stars');
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const sortedRepos = useMemo(() => {
     const sorted = [...repos];
@@ -34,6 +37,12 @@ const RepoList = ({ repos }: RepoListProps) => {
     }
     return sorted;
   }, [repos, sortBy]);
+
+  // Reset pagination whenever sort order changes
+  const handleSortChange = (value: SortKey) => {
+    setSortBy(value);
+    setVisibleCount(PAGE_SIZE);
+  };
 
   if (repos.length === 0) {
     return (
@@ -62,6 +71,9 @@ const RepoList = ({ repos }: RepoListProps) => {
     );
   }
 
+  const visibleRepos = sortedRepos.slice(0, visibleCount);
+  const hasMore = visibleCount < sortedRepos.length;
+
   return (
     <div>
       {/* Header + Sort */}
@@ -69,7 +81,7 @@ const RepoList = ({ repos }: RepoListProps) => {
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
           Repositories{' '}
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-            ({repos.length})
+            (showing {visibleRepos.length} of {repos.length})
           </span>
         </h2>
 
@@ -83,7 +95,7 @@ const RepoList = ({ repos }: RepoListProps) => {
           <select
             id="sort-select"
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as SortKey)}
+            onChange={(e) => handleSortChange(e.target.value as SortKey)}
             className="text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer transition"
           >
             {SORT_OPTIONS.map((opt) => (
@@ -97,10 +109,22 @@ const RepoList = ({ repos }: RepoListProps) => {
 
       {/* Responsive grid: 1 col mobile, 2 col desktop */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {sortedRepos.map((repo) => (
+        {visibleRepos.map((repo) => (
           <RepoCard key={repo.name} repo={repo} />
         ))}
       </div>
+
+      {/* Show More button */}
+      {hasMore && (
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-medium text-sm border border-indigo-200 dark:border-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 active:scale-95 transition-all duration-200 cursor-pointer"
+          >
+            Show more
+          </button>
+        </div>
+      )}
     </div>
   );
 };
