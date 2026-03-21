@@ -9,6 +9,7 @@ import ContributionGraph from './components/ContributionGraph';
 import StatsGrid from './components/StatsGrid';
 import MonthlyCommitsChart from './components/MonthlyCommitsChart';
 import useGitHubUser from './hooks/useGitHubUser';
+import DevCard from './components/DevCard';
 
 const App = () => {
   const [committedUsername, setCommittedUsername] = useState('');
@@ -90,7 +91,21 @@ const App = () => {
 
             {/* Content Area */}
             <div className="lg:col-span-3 space-y-8">
-              <StatsGrid repos={repos} contributions={contributions} />
+              {/* DevCard Row */}
+              <div className="flex flex-col items-center xl:items-start">
+                  <h2 className="text-lg font-semibold text-[#f0f6fc] mb-4 flex items-center gap-2 self-start">
+                    <span className="w-1.5 h-6 bg-gradient-to-b from-[#58a6ff] to-[#238636] rounded-full"></span>
+                    Dev Trading Card
+                  </h2>
+                  <div className="w-full flex justify-center xl:justify-start">
+                    <DevCard user={user} repos={repos} contributions={contributions} />
+                  </div>
+              </div>
+
+              {/* Stats Grid */}
+              <section>
+                <StatsGrid repos={repos} contributions={contributions} />
+              </section>
 
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                 {/* Languages Section */}
