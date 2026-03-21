@@ -2,6 +2,8 @@ import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import ProfileCard from './components/ProfileCard';
 import RepoList from './components/RepoList';
+import SkeletonCard from './components/SkeletonCard';
+import SkeletonRepo from './components/SkeletonRepo';
 import useGitHubUser from './hooks/useGitHubUser';
 
 const App = () => {
@@ -29,52 +31,34 @@ const App = () => {
         {/* Search */}
         <SearchBar onSearch={(username) => setCommittedUsername(username)} />
 
-        {/* Loading */}
+        {/* ── Skeleton loading state ── */}
         {loading && (
-          <div className="flex items-center justify-center py-16 gap-3 text-indigo-500">
-            <svg
-              className="animate-spin w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v8H4z"
-              />
-            </svg>
-            <span className="text-sm font-medium">Loading profile…</span>
+          <div className="space-y-6">
+            <SkeletonCard />
+            <SkeletonRepo />
           </div>
         )}
 
-        {/* Error */}
-        {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl px-5 py-4 text-red-700 dark:text-red-400 text-sm flex items-center gap-2">
-            <span>❌</span>
-            <span>{error}</span>
+        {/* ── Error state ── */}
+        {!loading && error && (
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl px-5 py-4 text-red-700 dark:text-red-400 text-sm flex items-start gap-3">
+            <span className="text-lg leading-none mt-0.5">❌</span>
+            <div>
+              <p className="font-semibold">Something went wrong</p>
+              <p className="mt-0.5 opacity-80">{error}</p>
+            </div>
           </div>
         )}
 
-        {/* Profile + Repos */}
+        {/* ── Profile + Repos (success state) ── */}
         {!loading && !error && user && (
           <div className="space-y-6">
-            {/* Profile card */}
             <ProfileCard user={user} />
-
-            {/* Repo list */}
             <RepoList repos={repos} />
           </div>
         )}
 
-        {/* Empty state */}
+        {/* ── "Search to get started" empty state ── */}
         {!loading && !error && !user && committedUsername === '' && (
           <div className="text-center py-20 text-gray-400 dark:text-gray-600">
             <svg
