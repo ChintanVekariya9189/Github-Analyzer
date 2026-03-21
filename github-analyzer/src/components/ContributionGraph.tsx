@@ -10,8 +10,8 @@ interface ContributionGraphProps {
 const ContributionGraph = ({ data, loading }: ContributionGraphProps) => {
   if (loading) {
     return (
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 h-[200px] flex items-center justify-center animate-pulse">
-        <div className="text-gray-400">Loading contribution data...</div>
+      <div className="h-[150px] flex items-center justify-center animate-pulse">
+        <div className="text-[#8b949e]">Loading contribution data...</div>
       </div>
     );
   }
@@ -21,20 +21,17 @@ const ContributionGraph = ({ data, loading }: ContributionGraphProps) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 overflow-x-auto">
-      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
-        Contribution Heatmap
-      </h3>
+    <div className="overflow-x-auto">
       <div className="min-w-[700px]">
         <ActivityCalendar
           data={data}
           theme={{
-            light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-            dark: ['#161b22', '#01311f', '#034525', '#24a742', '#3ad353'],
+            dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
           }}
           labels={{
             totalCount: '{{count}} contributions in the last year',
           }}
+          colorScheme="dark"
           tooltips={{
             activity: {
               text: (activity: any) =>

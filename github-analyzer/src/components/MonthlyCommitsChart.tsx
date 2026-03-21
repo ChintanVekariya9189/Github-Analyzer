@@ -21,17 +21,17 @@ const MonthlyCommitsChart = ({ contributions }: MonthlyCommitsChartProps) => {
   if (data.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col h-full">
+    <div className="flex flex-col h-full min-h-[300px]">
       <div className="mb-6">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-          Monthly Commit History
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        <h3 className="text-base font-semibold text-[#f0f6fc]">
+          Monthly Activity
+        </h3>
+        <p className="text-xs text-[#8b949e] mt-1">
           Contributions across the last 12 months
         </p>
       </div>
 
-      <div className="flex-1 min-h-[300px] w-full">
+      <div className="flex-1 w-full mt-4">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
@@ -40,31 +40,30 @@ const MonthlyCommitsChart = ({ contributions }: MonthlyCommitsChartProps) => {
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#E5E7EB"
-              className="dark:stroke-gray-800"
+              stroke="#30363d"
             />
             <XAxis
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: '#9CA3AF', fontSize: 12 }}
+              tick={{ fill: '#8b949e', fontSize: 10 }}
               interval="preserveStartEnd"
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: '#9CA3AF', fontSize: 12 }}
+              tick={{ fill: '#8b949e', fontSize: 10 }}
             />
             <Tooltip
-              cursor={{ fill: 'transparent' }}
+              cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 shadow-xl text-sm">
-                      <p className="font-bold text-gray-900 dark:text-white">
+                    <div className="bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-2 shadow-2xl text-xs">
+                      <p className="font-bold text-[#f0f6fc]">
                         {payload[0].payload.month}
                       </p>
-                      <p className="text-indigo-500 font-medium">
+                      <p className="text-[#238636] font-medium mt-1">
                         {payload[0].value} contributions
                       </p>
                     </div>
@@ -73,11 +72,11 @@ const MonthlyCommitsChart = ({ contributions }: MonthlyCommitsChartProps) => {
                 return null;
               }}
             />
-            <Bar dataKey="count" radius={[4, 4, 0, 0]} barSize={32}>
+            <Bar dataKey="count" radius={[2, 2, 0, 0]} barSize={24}>
               {data.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  className="fill-indigo-500 hover:fill-indigo-600 transition-colors duration-200"
+                  className="fill-[#238636] hover:fill-[#2ea043] transition-colors duration-200"
                 />
               ))}
             </Bar>

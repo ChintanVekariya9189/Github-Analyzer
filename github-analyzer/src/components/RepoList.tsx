@@ -75,28 +75,25 @@ const RepoList = ({ repos }: RepoListProps) => {
   const hasMore = visibleCount < sortedRepos.length;
 
   return (
-    <div>
+    <div className="space-y-6">
       {/* Header + Sort */}
-      <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
-        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-          Repositories{' '}
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-            (showing {visibleRepos.length} of {repos.length})
-          </span>
-        </h2>
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="text-sm text-[#8b949e]">
+          Showing <span className="text-[#c9d1d9] font-medium">{visibleRepos.length}</span> of <span className="text-[#c9d1d9] font-medium">{repos.length}</span> repositories
+        </div>
 
         <div className="flex items-center gap-2">
           <label
             htmlFor="sort-select"
-            className="text-xs font-medium text-gray-500 dark:text-gray-400"
+            className="text-xs font-medium text-[#8b949e]"
           >
-            Sort by
+            Sort:
           </label>
           <select
             id="sort-select"
             value={sortBy}
             onChange={(e) => handleSortChange(e.target.value as SortKey)}
-            className="text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer transition"
+            className="text-xs border border-[#30363d] rounded-md px-2 py-1 bg-[#21262d] text-[#c9d1d9] focus:outline-none focus:border-[#58a6ff] cursor-pointer transition-colors"
           >
             {SORT_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -116,10 +113,10 @@ const RepoList = ({ repos }: RepoListProps) => {
 
       {/* Show More button */}
       {hasMore && (
-        <div className="mt-6 flex justify-center">
+        <div className="pt-4 flex justify-center">
           <button
             onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-medium text-sm border border-indigo-200 dark:border-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 active:scale-95 transition-all duration-200 cursor-pointer"
+            className="w-full py-2 bg-[#21262d] border border-[#30363d] rounded-lg text-sm font-medium text-[#c9d1d9] hover:bg-[#30363d] hover:border-[#8b949e] transition-all active:scale-[0.98]"
           >
             Show more
           </button>

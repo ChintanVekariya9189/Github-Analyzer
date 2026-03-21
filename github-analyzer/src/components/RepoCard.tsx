@@ -5,29 +5,27 @@ interface RepoCardProps {
 }
 
 const LANGUAGE_COLORS: Record<string, string> = {
-  TypeScript: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
-  JavaScript:
-    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300',
-  Python: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
-  Rust: 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
-  Go: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900 dark:text-cyan-300',
-  Java: 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300',
-  'C++': 'bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300',
-  C: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  CSS: 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300',
-  HTML: 'bg-orange-100 text-orange-600 dark:bg-orange-900 dark:text-orange-300',
-  Shell: 'bg-lime-100 text-lime-700 dark:bg-lime-900 dark:text-lime-300',
-  Ruby: 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300',
-  Swift: 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300',
-  Kotlin:
-    'bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-300',
+  TypeScript: '#3178c6',
+  Python: '#3572A5',
+  JavaScript: '#f1e05a',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+  Java: '#b07219',
+  'C++': '#f34b7d',
+  C: '#555555',
+  Go: '#00ADD8',
+  Swift: '#f05138',
+  Rust: '#dea584',
+  PHP: '#4F5D95',
+  Ruby: '#701516',
+  Shell: '#89e051',
+  Kotlin: '#A97BFF',
+  Vue: '#41b883',
+  React: '#61dafb',
 };
 
-const getLanguageClass = (lang: string | null) =>
-  lang
-    ? (LANGUAGE_COLORS[lang] ??
-      'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300')
-    : '';
+const getLanguageColor = (lang: string | null) =>
+  lang ? (LANGUAGE_COLORS[lang] ?? '#8b949e') : '#8b949e';
 
 const RepoCard = ({ repo }: RepoCardProps) => {
   return (
@@ -35,16 +33,16 @@ const RepoCard = ({ repo }: RepoCardProps) => {
       href={repo.html_url}
       target="_blank"
       rel="noreferrer"
-      className="group block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-500 transition-all duration-200 p-4"
+      className="group block bg-[#161b22] border border-[#30363d] rounded-xl hover:border-[#58a6ff]/50 transition-all duration-200 p-5"
     >
       {/* Repo name */}
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-base font-semibold text-indigo-600 dark:text-indigo-400 group-hover:underline truncate">
+        <h3 className="text-base font-semibold text-[#58a6ff] group-hover:underline truncate">
           {repo.name}
         </h3>
         {/* External link icon */}
         <svg
-          className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5"
+          className="w-4 h-4 text-[#8b949e] flex-shrink-0 mt-0.5"
           fill="none"
           stroke="currentColor"
           strokeWidth={2}
@@ -59,19 +57,20 @@ const RepoCard = ({ repo }: RepoCardProps) => {
       </div>
 
       {/* Description — clamped to 2 lines */}
-      <p className="mt-1.5 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 min-h-[2.5rem]">
+      <p className="mt-2 text-sm text-[#8b949e] line-clamp-2 min-h-[2.5rem]">
         {repo.description ?? 'No description provided.'}
       </p>
 
       {/* Footer row */}
-      <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+      <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-[#8b949e]">
         {/* Language badge */}
         {repo.language && (
-          <span
-            className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-medium text-xs ${getLanguageClass(repo.language)}`}
-          >
-            <span className="w-2 h-2 rounded-full bg-current opacity-70" />
-            {repo.language}
+          <span className="flex items-center gap-1.5">
+            <span 
+              className="w-3 h-3 rounded-full" 
+              style={{ backgroundColor: getLanguageColor(repo.language) }}
+            />
+            <span className="font-medium text-[#c9d1d9]">{repo.language}</span>
           </span>
         )}
 

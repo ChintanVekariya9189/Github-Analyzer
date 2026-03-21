@@ -97,16 +97,16 @@ const StatsGrid = ({ repos, contributions }: StatsGridProps) => {
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm p-5 flex items-center gap-4"
+          className="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex items-center gap-4 hover:border-[#58a6ff]/30 transition-colors"
         >
-          <div className="bg-gray-50 dark:bg-gray-800/50 p-2.5 rounded-xl">
+          <div className="bg-[#0d1117] p-2.5 rounded-lg border border-[#30363d]">
             {stat.icon}
           </div>
           <div>
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <p className="text-xs font-medium text-[#8b949e] uppercase tracking-wider">
               {stat.label}
             </p>
-            <p className="text-xl font-bold text-gray-900 dark:text-white mt-0.5">
+            <p className="text-xl font-bold text-[#f0f6fc] mt-0.5">
               {stat.value}
             </p>
           </div>
