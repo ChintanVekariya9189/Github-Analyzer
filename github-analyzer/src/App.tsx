@@ -5,11 +5,14 @@ import RepoList from './components/RepoList';
 import LanguageChart from './components/LanguageChart';
 import SkeletonCard from './components/SkeletonCard';
 import SkeletonRepo from './components/SkeletonRepo';
+import ContributionGraph from './components/ContributionGraph';
+import StatsGrid from './components/StatsGrid';
+import MonthlyCommitsChart from './components/MonthlyCommitsChart';
 import useGitHubUser from './hooks/useGitHubUser';
 
 const App = () => {
   const [committedUsername, setCommittedUsername] = useState('');
-  const { user, repos, loading, error, rateLimitError } =
+  const { user, repos, contributions, loading, error, rateLimitError } =
     useGitHubUser(committedUsername);
 
   return (
@@ -80,7 +83,12 @@ const App = () => {
         {!loading && !error && user && (
           <div className="space-y-6">
             <ProfileCard user={user} />
-            {repos.length > 0 && <LanguageChart repos={repos} />}
+            <StatsGrid repos={repos} contributions={contributions} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {repos.length > 0 && <LanguageChart repos={repos} />}
+              <MonthlyCommitsChart contributions={contributions} />
+            </div>
+            <ContributionGraph data={contributions} />
             <RepoList repos={repos} />
           </div>
         )}

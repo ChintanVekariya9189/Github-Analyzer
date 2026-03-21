@@ -11,4 +11,25 @@ const githubApi = axios.create({
   },
 });
 
+export const graphqlRequest = async <T>(
+  query: string,
+  variables?: Record<string, any>,
+): Promise<T> => {
+  const response = await githubApi.post<{ data: T; errors?: any }>(
+    '/graphql',
+    { query, variables },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  if (response.data.errors) {
+    throw new Error(response.data.errors[0].message);
+  }
+
+  return response.data.data;
+};
+
 export default githubApi;

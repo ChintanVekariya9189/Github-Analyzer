@@ -17,3 +17,30 @@ export interface GitHubRepo {
   html_url: string;
   updated_at: string;
 }
+
+export interface ContributionDay {
+  date: string;
+  contributionCount: number;
+}
+
+export interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
+export interface ContributionCalendar {
+  weeks: ContributionWeek[];
+}
+
+export interface GraphQLContributionsResponse {
+  user: {
+    contributionsCollection: {
+      contributionCalendar: ContributionCalendar;
+    };
+  } | null;
+}
+
+export interface HeatmapData {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
