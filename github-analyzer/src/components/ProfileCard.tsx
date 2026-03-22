@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { GitHubUser } from '../types/github';
 
 interface ProfileCardProps {
@@ -5,8 +6,27 @@ interface ProfileCardProps {
 }
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
+
   return (
-    <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 flex flex-col items-center lg:items-start gap-6">
+    <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 flex flex-col items-center lg:items-start gap-6 relative">
+      {/* Toast Notification */}
+      {copied && (
+        <div className="absolute top-4 right-4 bg-[#238636] text-white px-3 py-1.5 rounded-md text-sm font-medium shadow-lg animate-in fade-in zoom-in duration-200 z-10">
+          Copied!
+        </div>
+      )}
+
       {/* Avatar */}
       <img
         src={user.avatar_url}
@@ -28,6 +48,26 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             {user.bio}
           </p>
         )}
+
+        <button
+          onClick={handleCopy}
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] rounded-lg text-[#c9d1d9] text-sm font-medium transition-colors group"
+        >
+          <svg
+            className="w-4 h-4 text-[#8b949e] group-hover:text-[#58a6ff] transition-colors"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+            />
+          </svg>
+          Copy link
+        </button>
 
         {/* Stats stack */}
         <div className="pt-4 border-t border-[#30363d] space-y-3">
