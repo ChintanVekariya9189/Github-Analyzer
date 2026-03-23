@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { GitHubUser } from '../types/github';
 
 interface ProfileCardProps {
@@ -7,6 +8,9 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
   const [copied, setCopied] = useState(false);
+  const [isComparing, setIsComparing] = useState(false);
+  const [compareUsername, setCompareUsername] = useState('');
+  const navigate = useNavigate();
 
   const handleCopy = async () => {
     try {
@@ -68,6 +72,58 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           </svg>
           Copy link
         </button>
+
+        {/* Compare Section */}
+        <div className="space-y-2">
+          {!isComparing ? (
+            <button
+              onClick={() => setIsComparing(true)}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#238636] hover:bg-[#2ea043] border border-transparent rounded-lg text-white text-sm font-medium transition-colors shadow-sm"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+              Compare
+            </button>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (compareUsername.trim()) {
+                  navigate(`/compare/${user.login}/${compareUsername.trim()}`);
+                }
+              }}
+              className="flex flex-col gap-2 animate-in slide-in-from-top-2 duration-200"
+            >
+              <input
+                type="text"
+                autoFocus
+                placeholder="Enter username..."
+                className="w-full px-3 py-2 bg-gray-50 dark:bg-[#0d1117] border border-gray-300 dark:border-[#30363d] rounded-lg text-sm text-gray-900 dark:text-[#f0f6fc] focus:ring-2 focus:ring-[#58a6ff] focus:border-transparent outline-none transition-all"
+                value={compareUsername}
+                onChange={(e) => setCompareUsername(e.target.value)}
+              />
+              <div className="flex gap-2">
+                <button
+                  type="submit"
+                  className="flex-1 px-3 py-1.5 bg-[#238636] hover:bg-[#2ea043] text-white text-xs font-medium rounded-md transition-colors"
+                >
+                  Go
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsComparing(false);
+                    setCompareUsername('');
+                  }}
+                  className="px-3 py-1.5 bg-gray-100 dark:bg-[#30363d] hover:bg-gray-200 dark:hover:bg-[#444c56] text-gray-700 dark:text-[#c9d1d9] text-xs font-medium rounded-md transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
 
         {/* Stats stack */}
         <div className="pt-4 border-t border-gray-200 dark:border-[#30363d] space-y-3">

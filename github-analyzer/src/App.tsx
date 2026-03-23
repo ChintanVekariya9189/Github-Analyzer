@@ -8,6 +8,7 @@ import {
 import SearchBar from './components/SearchBar';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
+import ComparePage from './pages/ComparePage';
 import { useTheme } from './hooks/useTheme';
 
 const App = () => {
@@ -98,6 +99,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/u/:username" element={<ProfilePage />} />
+          <Route path="/compare/:user1/:user2" element={<ComparePage />} />
         </Routes>
       </main>
     </div>
