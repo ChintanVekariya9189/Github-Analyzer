@@ -359,13 +359,10 @@ const DevCard = ({ user, repos, contributions }: DevCardProps) => {
           </div>
         </div>
       </div>
-
       {/* Download Button */}
       <button
         onClick={handleDownload}
-        style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 32px', borderRadius: '999px', backgroundColor: '#161b22', color: '#f0f6fc', border: '1px solid #30363d', fontWeight: 700, fontSize: '14px', cursor: 'pointer', fontFamily: FONT }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#58a6ff'; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#30363d'; }}
+        className="flex items-center gap-2 px-8 py-3 rounded-full bg-gray-100 dark:bg-[#161b22] text-gray-700 dark:text-[#f0f6fc] border border-gray-300 dark:border-[#30363d] font-bold text-sm hover:border-[#58a6ff] transition-all duration-200"
       >
         <svg width="18" height="18" fill="none" stroke="#238636" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
           <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

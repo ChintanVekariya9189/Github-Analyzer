@@ -23,10 +23,10 @@ const MonthlyCommitsChart = ({ contributions }: MonthlyCommitsChartProps) => {
   return (
     <div className="flex flex-col h-full min-h-[300px]">
       <div className="mb-6">
-        <h3 className="text-base font-semibold text-[#f0f6fc]">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-[#f0f6fc] transition-colors duration-300">
           Monthly Activity
         </h3>
-        <p className="text-xs text-[#8b949e] mt-1">
+        <p className="text-xs text-gray-500 dark:text-[#8b949e] mt-1 transition-colors duration-300">
           Contributions across the last 12 months
         </p>
       </div>
@@ -40,7 +40,8 @@ const MonthlyCommitsChart = ({ contributions }: MonthlyCommitsChartProps) => {
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#30363d"
+              stroke="currentColor"
+              className="text-gray-200 dark:text-[#30363d] transition-colors duration-300"
             />
             <XAxis
               dataKey="month"
@@ -55,12 +56,12 @@ const MonthlyCommitsChart = ({ contributions }: MonthlyCommitsChartProps) => {
               tick={{ fill: '#8b949e', fontSize: 10 }}
             />
             <Tooltip
-              cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
+              cursor={{ fill: 'currentColor', className: 'text-gray-100/50 dark:text-white/5' }}
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-2 shadow-2xl text-xs">
-                      <p className="font-bold text-[#f0f6fc]">
+                    <div className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-lg px-3 py-2 shadow-2xl text-xs transition-all duration-300">
+                      <p className="font-bold text-gray-900 dark:text-[#f0f6fc]">
                         {payload[0].payload.month}
                       </p>
                       <p className="text-[#238636] font-medium mt-1">

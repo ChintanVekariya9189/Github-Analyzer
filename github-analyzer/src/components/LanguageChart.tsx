@@ -80,10 +80,10 @@ const LanguageChart = ({ repos }: Props) => {
 
   return (
     <div>
-      <h3 className="text-base font-semibold text-[#f0f6fc] mb-1">
+      <h3 className="text-base font-semibold text-gray-900 dark:text-[#f0f6fc] mb-1 transition-colors duration-300">
         Language Distribution
       </h3>
-      <p className="text-xs text-[#8b949e] mb-6">
+      <p className="text-xs text-gray-500 dark:text-[#8b949e] mb-6 transition-colors duration-300">
         Based on {repos.length} public repositories
       </p>
 
@@ -123,10 +123,10 @@ const LanguageChart = ({ repos }: Props) => {
                 className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                 style={{ backgroundColor: color }}
               />
-              <span className="text-xs w-24 truncate text-[#c9d1d9] font-medium">
+              <span className="text-xs w-24 truncate text-gray-700 dark:text-[#c9d1d9] font-medium transition-colors duration-300">
                 {s.lang}
               </span>
-              <div className="flex-1 bg-[#30363d] rounded-full h-1.5 overflow-hidden">
+              <div className="flex-1 bg-gray-100 dark:bg-[#30363d] rounded-full h-1.5 overflow-hidden transition-colors duration-300">
                 <div
                   className="h-full rounded-full transition-all duration-700 ease-out"
                   style={{
@@ -135,7 +135,7 @@ const LanguageChart = ({ repos }: Props) => {
                   }}
                 />
               </div>
-              <span className="text-[10px] text-[#8b949e] w-8 text-right font-mono">
+              <span className="text-[10px] text-gray-400 dark:text-[#8b949e] w-8 text-right font-mono transition-colors duration-300">
                 {s.count}
               </span>
             </div>

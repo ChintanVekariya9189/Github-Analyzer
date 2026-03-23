@@ -93,20 +93,20 @@ const StatsGrid = ({ repos, contributions }: StatsGridProps) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 transition-colors duration-300">
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex items-center gap-4 hover:border-[#58a6ff]/30 transition-colors"
+          className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl p-5 flex items-center gap-4 hover:border-[#58a6ff]/30 shadow-sm dark:shadow-none transition-all duration-300"
         >
-          <div className="bg-[#0d1117] p-2.5 rounded-lg border border-[#30363d]">
+          <div className="bg-gray-50 dark:bg-[#0d1117] p-2.5 rounded-lg border border-gray-100 dark:border-[#30363d] transition-colors duration-300">
             {stat.icon}
           </div>
           <div>
-            <p className="text-xs font-medium text-[#8b949e] uppercase tracking-wider">
+            <p className="text-xs font-medium text-gray-500 dark:text-[#8b949e] uppercase tracking-wider">
               {stat.label}
             </p>
-            <p className="text-xl font-bold text-[#f0f6fc] mt-0.5">
+            <p className="text-xl font-bold text-gray-900 dark:text-[#f0f6fc] mt-0.5">
               {stat.value}
             </p>
           </div>

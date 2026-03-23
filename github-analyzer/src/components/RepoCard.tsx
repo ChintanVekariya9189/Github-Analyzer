@@ -33,7 +33,7 @@ const RepoCard = ({ repo }: RepoCardProps) => {
       href={repo.html_url}
       target="_blank"
       rel="noreferrer"
-      className="group block bg-[#161b22] border border-[#30363d] rounded-xl hover:border-[#58a6ff]/50 transition-all duration-200 p-5"
+      className="group block bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl hover:border-[#58a6ff]/50 transition-all duration-200 p-5 shadow-sm dark:shadow-none"
     >
       {/* Repo name */}
       <div className="flex items-start justify-between gap-2">
@@ -42,7 +42,7 @@ const RepoCard = ({ repo }: RepoCardProps) => {
         </h3>
         {/* External link icon */}
         <svg
-          className="w-4 h-4 text-[#8b949e] flex-shrink-0 mt-0.5"
+          className="w-4 h-4 text-gray-400 dark:text-[#8b949e] flex-shrink-0 mt-0.5"
           fill="none"
           stroke="currentColor"
           strokeWidth={2}
@@ -57,7 +57,7 @@ const RepoCard = ({ repo }: RepoCardProps) => {
       </div>
 
       {/* Description — clamped to 2 lines */}
-      <p className="mt-2 text-sm text-[#8b949e] line-clamp-2 min-h-[2.5rem]">
+      <p className="mt-2 text-sm text-gray-600 dark:text-[#8b949e] line-clamp-2 min-h-[2.5rem]">
         {repo.description ?? 'No description provided.'}
       </p>
 

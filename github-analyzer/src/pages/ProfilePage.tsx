@@ -26,8 +26,8 @@ const ProfilePage = () => {
                     <div className="lg:col-span-3 space-y-6">
                         <SkeletonRepo />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="h-64 bg-[#161b22] rounded-xl animate-pulse"></div>
-                            <div className="h-64 bg-[#161b22] rounded-xl animate-pulse"></div>
+                            <div className="h-64 bg-gray-100 dark:bg-[#161b22] rounded-xl animate-pulse"></div>
+                            <div className="h-64 bg-gray-100 dark:bg-[#161b22] rounded-xl animate-pulse"></div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ const ProfilePage = () => {
                     <div className="lg:col-span-3 space-y-8">
                         {/* DevCard Row */}
                         <div className="flex flex-col items-center xl:items-start">
-                            <h2 className="text-lg font-semibold text-[#f0f6fc] mb-4 flex items-center gap-2 self-start">
+                            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#f0f6fc] mb-4 flex items-center gap-2 self-start transition-colors duration-300">
                                 <span className="w-1.5 h-6 bg-gradient-to-b from-[#58a6ff] to-[#238636] rounded-full"></span>
                                 Dev Trading Card
                             </h2>
@@ -88,26 +88,26 @@ const ProfilePage = () => {
                         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                             {/* Languages Section */}
                             <section className="flex flex-col">
-                                <h2 className="text-lg font-semibold text-[#f0f6fc] mb-4 flex items-center gap-2">
+                                <h2 className="text-lg font-semibold text-gray-900 dark:text-[#f0f6fc] mb-4 flex items-center gap-2 transition-colors duration-300">
                                     <span className="w-1.5 h-6 bg-[#3178c6] rounded-full"></span>
                                     Languages
                                 </h2>
-                                <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 flex-1">
+                                <div className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl p-6 flex-1 shadow-sm dark:shadow-none transition-all duration-300">
                                     {repos.length > 0 ? (
                                         <LanguageChart repos={repos} />
                                     ) : (
-                                        <div className="h-64 flex items-center justify-center text-[#8b949e]">No language data</div>
+                                        <div className="h-64 flex items-center justify-center text-gray-400 dark:text-[#8b949e]">No language data</div>
                                     )}
                                 </div>
                             </section>
 
                             {/* Contribution Activity Section */}
                             <section className="flex flex-col">
-                                <h2 className="text-lg font-semibold text-[#f0f6fc] mb-4 flex items-center gap-2">
+                                <h2 className="text-lg font-semibold text-gray-900 dark:text-[#f0f6fc] mb-4 flex items-center gap-2 transition-colors duration-300">
                                     <span className="w-1.5 h-6 bg-[#238636] rounded-full"></span>
                                     Activity Overview
                                 </h2>
-                                <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 flex-1">
+                                <div className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl p-6 flex-1 shadow-sm dark:shadow-none transition-all duration-300">
                                     <MonthlyCommitsChart contributions={contributions} />
                                 </div>
                             </section>
@@ -115,18 +115,18 @@ const ProfilePage = () => {
 
                         {/* Contribution Graph Section */}
                         <section>
-                            <h2 className="text-lg font-semibold text-[#f0f6fc] mb-4 flex items-center gap-2">
+                            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#f0f6fc] mb-4 flex items-center gap-2 transition-colors duration-300">
                                 <span className="w-1.5 h-6 bg-[#58a6ff] rounded-full"></span>
                                 Contribution Activity
                             </h2>
-                            <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 overflow-x-auto">
+                            <div className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl p-6 overflow-x-auto shadow-sm dark:shadow-none transition-all duration-300">
                                 <ContributionGraph data={contributions} />
                             </div>
                         </section>
 
                         {/* Repositories Section */}
                         <section>
-                            <h2 className="text-lg font-semibold text-[#f0f6fc] mb-4 flex items-center gap-2">
+                            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#f0f6fc] mb-4 flex items-center gap-2 transition-colors duration-300">
                                 <span className="w-1.5 h-6 bg-[#f1e05a] rounded-full"></span>
                                 Top Repositories
                             </h2>
