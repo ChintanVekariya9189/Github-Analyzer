@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import type { GitHubRepo } from '../types/github';
 
 interface RepoCardProps {
@@ -29,7 +30,11 @@ const getLanguageColor = (lang: string | null) =>
 
 const RepoCard = ({ repo }: RepoCardProps) => {
   return (
-    <a
+    <motion.a
+      variants={{
+        hidden: { opacity: 0, y: 10 },
+        show: { opacity: 1, y: 0 }
+      }}
       href={repo.html_url}
       target="_blank"
       rel="noreferrer"
@@ -98,7 +103,7 @@ const RepoCard = ({ repo }: RepoCardProps) => {
           {repo.forks_count.toLocaleString()}
         </span>
       </div>
-    </a>
+    </motion.a>
   );
 };
 

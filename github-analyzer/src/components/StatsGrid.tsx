@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { getLanguageStats } from '../utils/languageStats';
 import { calculateLongestStreak } from '../utils/statsUtils';
 import type { GitHubRepo, HeatmapData } from '../types/github';
@@ -6,6 +8,18 @@ interface StatsGridProps {
   repos: GitHubRepo[];
   contributions: HeatmapData[];
 }
+
+const Counter = ({ value }: { value: number }) => {
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.round(latest).toLocaleString());
+
+  useEffect(() => {
+    const animation = animate(count, value, { duration: 1, ease: 'easeOut' });
+    return animation.stop;
+  }, [count, value]);
+
+  return <motion.span>{rounded}</motion.span>;
+};
 
 const StatsGrid = ({ repos, contributions }: StatsGridProps) => {
   const totalStars = repos.reduce(
@@ -20,7 +34,8 @@ const StatsGrid = ({ repos, contributions }: StatsGridProps) => {
   const stats = [
     {
       label: 'Total Stars',
-      value: totalStars.toLocaleString(),
+      value: totalStars,
+      isNumeric: true,
       icon: (
         <svg
           className="w-5 h-5 text-yellow-400"
@@ -33,7 +48,8 @@ const StatsGrid = ({ repos, contributions }: StatsGridProps) => {
     },
     {
       label: 'Total Forks',
-      value: totalForks.toLocaleString(),
+      value: totalForks,
+      isNumeric: true,
       icon: (
         <svg
           className="w-5 h-5 text-indigo-400"
@@ -75,7 +91,9 @@ const StatsGrid = ({ repos, contributions }: StatsGridProps) => {
     },
     {
       label: 'Longest Streak',
-      value: `${longestStreak} days`,
+      value: longestStreak,
+      isNumeric: true,
+      suffix: ' days',
       icon: (
         <svg
           className="w-5 h-5 text-orange-400"
@@ -107,7 +125,14 @@ const StatsGrid = ({ repos, contributions }: StatsGridProps) => {
               {stat.label}
             </p>
             <p className="text-xl font-bold text-gray-900 dark:text-[#f0f6fc] mt-0.5">
-              {stat.value}
+              {stat.isNumeric ? (
+                <>
+                  <Counter value={stat.value as number} />
+                  {stat.suffix}
+                </>
+              ) : (
+                stat.value
+              )}
             </p>
           </div>
         </div>

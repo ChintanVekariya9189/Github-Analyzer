@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import type { GitHubUser } from '../types/github';
 
 interface ProfileCardProps {
@@ -23,7 +24,12 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl p-6 flex flex-col items-center lg:items-start gap-6 relative shadow-sm dark:shadow-none transition-all duration-300">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl p-6 flex flex-col items-center lg:items-start gap-6 relative shadow-sm dark:shadow-none transition-all duration-300"
+    >
       {/* Toast Notification */}
       {copied && (
         <div className="absolute top-4 right-4 bg-[#238636] text-white px-3 py-1.5 rounded-md text-sm font-medium shadow-lg animate-in fade-in zoom-in duration-200 z-10">
@@ -162,7 +168,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

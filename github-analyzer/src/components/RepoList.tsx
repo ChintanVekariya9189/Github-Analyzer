@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import type { GitHubRepo } from '../types/github';
 import RepoCard from './RepoCard';
 
@@ -105,11 +106,24 @@ const RepoList = ({ repos }: RepoListProps) => {
       </div>
 
       {/* Responsive grid: 1 col mobile, 2 col desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <motion.div
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.05,
+            },
+          },
+        }}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
         {visibleRepos.map((repo) => (
           <RepoCard key={repo.name} repo={repo} />
         ))}
-      </div>
+      </motion.div>
 
       {/* Show More button */}
       {hasMore && (
